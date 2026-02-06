@@ -1,0 +1,13 @@
+{
+  "buildCommand": "pip install -r requirements.txt",
+  "devCommand": "python main.py",
+  "installCommand": "pip install -r requirements.txt",
+  "framework": "python",
+  "outputDirectory": ".",
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/main.py"
+    }
+  ]
+}

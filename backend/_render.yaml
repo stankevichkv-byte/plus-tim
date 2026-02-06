@@ -1,0 +1,31 @@
+# Render deployment configuration for PlusTim Backend
+
+# Инструкция по деплою на Render:
+# 1. Зайдите на https://render.com
+# 2. New -> Web Service
+# 3. Подключите GitHub репозиторий
+# 4. Настройте параметры ниже
+
+# Настройки для Render:
+# =====================
+# Name: plus-tim-backend
+# Root Directory: backend
+# Language: Python
+# Region: Oregon (US West)
+# Branch: main
+# 
+# Build Command: pip install -r requirements.txt
+# Start Command: uvicorn plus_tim.backend.main:app --host 0.0.0.0 --port $PORT
+#
+# Environment Variables:
+# - BOT_TOKEN=8586426878:AAHkEtDdtm9ZPVIjWjHgD5JST1g2hbJnjYA
+# - PYTHON_VERSION=3.12.0
+#
+# Plan: Free
+
+# Требования к Python
+python_version: "3.12.0"
+
+# Команды
+build_command: "pip install -r requirements.txt"
+start_command: "uvicorn plus_tim.backend.main:app --host 0.0.0.0 --port $PORT"
