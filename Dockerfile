@@ -13,6 +13,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
     && rm -rf /var/lib/apt/lists/*
 
+# Configure pip to use timeout and retries
+RUN pip config set global.timeout 60 && \
+    pip config set global.retries 10 && \
+    pip config set global.index-url https://pypi.org/simple && \
+    pip config set global.trusted-host pypi.org
+
 # Copy requirements first for better caching
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
