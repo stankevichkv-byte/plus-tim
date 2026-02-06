@@ -2,6 +2,10 @@ FROM python:3.11-slim-bookworm
 
 WORKDIR /app
 
+# Use Russian mirrors to avoid timeout issues
+RUN sed -i 's/deb.debian.org/mirror.yandex.ru/g' /etc/apt/sources.list.d/*.list || \
+    echo 'deb http://mirror.yandex.ru/debian bookworm main' > /etc/apt/sources.list
+
 # Install system dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
