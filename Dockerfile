@@ -2,9 +2,10 @@ FROM python:3.11-slim-bookworm
 
 WORKDIR /app
 
-# Disable default Debian mirrors and use Russian mirror
-RUN rm -f /etc/apt/sources.list.d/*.list 2>/dev/null; \
-    echo 'deb http://mirror.yandex.ru/debian bookworm main contrib non-free' > /etc/apt/sources.list && \
+# Use Russian mirror - completely replace apt sources
+RUN rm -rf /etc/apt/sources.list.d/*.sources /etc/apt/sources.list.d/*.list 2>/dev/null || true
+RUN echo 'Acquire::Check-Valid-Until "false";' > /etc/apt/apt.conf.d/99no-check-valid-until
+RUN echo 'deb http://mirror.yandex.ru/debian bookworm main contrib non-free' > /etc/apt/sources.list && \
     echo 'deb http://mirror.yandex.ru/debian-security bookworm-security main contrib non-free' >> /etc/apt/sources.list
 
 # Install system dependencies
