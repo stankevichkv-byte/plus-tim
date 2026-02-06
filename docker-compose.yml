@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  backend:
+    build: .
+    container_name: plus-tim-backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    restart: unless-stopped
+    environment:
+      - DATABASE_URL=sqlite:///./data/plustim.db
+      - BOT_TOKEN=${BOT_TOKEN}
+    working_dir: /app
+
+  nginx:
+    image: nginx:alpine
+    container_name: plus-tim-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./ssl:/etc/nginx/ssl:ro
+    depends_on:
+      - backend
+    restart: unless-stopped
