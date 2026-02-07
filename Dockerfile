@@ -17,9 +17,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN pip config set global.timeout 300 && \
     pip config set global.retries 30 && \
     pip config set global.index-url "https://pypi.org/simple" && \
-    pip config set global.trusted-host pypi.org && \
-    pip config set global.use-pep517 && \
-    pip config set install.use-wheel false
+    pip config set global.trusted-host pypi.org
 
 # Copy requirements first for better caching
 COPY requirements.txt .
