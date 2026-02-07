@@ -13,11 +13,13 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
     && rm -rf /var/lib/apt/lists/*
 
-# Configure pip - use cloudflare mirror (works from Russia)
-RUN pip config set global.timeout 180 && \
-    pip config set global.retries 25 && \
-    pip config set global.index-url "https://pypi.cloudflare.com/pyxi" && \
-    pip config set global.trusted-host pypi.cloudflare.com
+# Configure pip - use official PyPI with extended timeout and retries
+RUN pip config set global.timeout 300 && \
+    pip config set global.retries 30 && \
+    pip config set global.index-url "https://pypi.org/simple" && \
+    pip config set global.trusted-host pypi.org && \
+    pip config set global.use-pep517 && \
+    pip config set install.use-wheel false
 
 # Copy requirements first for better caching
 COPY requirements.txt .
