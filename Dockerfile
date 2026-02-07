@@ -13,12 +13,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
     && rm -rf /var/lib/apt/lists/*
 
-# Configure pip - use Russian mirror with extended timeout and retries
-# Try multiple mirrors - Russia-friendly options
+# Configure pip - use Tsinghua mirror with extended timeout and retries
 RUN pip config set global.timeout 600 && \
-    pip config set global.retries 50 && \
-    pip config set global.index-url "https://mirror.yandex.ru/mirrors/pypi/simple" && \
-    pip config set global.trusted-host mirror.yandex.ru
+    pip config set global.retries 100 && \
+    pip config set global.index-url "https://pypi.tuna.tsinghua.edu.cn/simple" && \
+    pip config set global.trusted-host pypi.tuna.tsinghua.edu.cn
 
 # Copy requirements first for better caching
 COPY requirements.txt .
