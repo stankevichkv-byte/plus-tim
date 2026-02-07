@@ -13,11 +13,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
     && rm -rf /var/lib/apt/lists/*
 
-# Configure pip to use Tsinghua mirror (much faster in Russia/China)
-RUN pip config set global.timeout 120 && \
-    pip config set global.retries 15 && \
-    pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple && \
-    pip config set global.trusted-host pypi.tuna.tsinghua.edu.cn
+# Configure pip - use cloudflare mirror (works from Russia)
+RUN pip config set global.timeout 180 && \
+    pip config set global.retries 25 && \
+    pip config set global.index-url "https://pypi.cloudflare.com/pyxi" && \
+    pip config set global.trusted-host pypi.cloudflare.com
 
 # Copy requirements first for better caching
 COPY requirements.txt .
