@@ -21,7 +21,8 @@ RUN pip config set global.timeout 600 && \
 
 # Copy requirements first for better caching
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+# Use Aliyun mirror
+RUN pip install --no-cache-dir -r requirements.txt --index-url https://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com --default-timeout=120
 
 # Copy application code
 COPY . .
